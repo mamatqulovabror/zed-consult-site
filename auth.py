@@ -1,21 +1,20 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
-from passlib.context import CryptContext
-from fastapi import Depends, HTTPException
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from database import get_db, User
+from database import User
+import bcrypt
 import os
 
-SECRET_KEY = os.getenv("SECRET_KEY", "zed-consult-secret-key-2024")
+SECRET_KEY = os.getenv("SECRET_KEY", "zed-consult-secret-2024")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain, hashed):
-    return pwd_context.verify(plain, hashed)
+    return bcrypt.checkpw(plain.encode('utf-8'), hashed.encode('utf-8'))
 
 def hash_password(password):
-    return pwd_context.hash(password)
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 def create_token(data: dict):
     to_encode = data.copy()
