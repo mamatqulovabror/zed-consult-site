@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zed Consult</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0f13;--surface:#1a1a24;--surface2:#22222f;--border:#2a2a3a;--accent:#7c6cf8;--accent2:#a89bf9;--gold:#f59e0b;--text:#f1f1f5;--text2:#8b8b9e;--green:#10b981;--red:#ef4444;--radius:14px}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+a{text-decoration:none;color:inherit}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,15,19,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:20px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;align-items:center;gap:8px}
+.nav-btn{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+.nav-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.nav-btn.outline:hover{border-color:var(--accent);color:var(--accent2)}
+.nav-btn.primary{background:var(--accent);color:white}
+.nav-btn.primary:hover{background:var(--accent2)}
+.nav-user{font-size:14px;color:var(--text2)}
+.nav-user span{color:var(--text);font-weight:500}
+.page{display:none;animation:fadeIn .25s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hero{max-width:900px;margin:0 auto;padding:80px 24px 60px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,108,248,0.12);border:1px solid rgba(124,108,248,0.3);color:var(--accent2);padding:6px 14px;border-radius:100px;font-size:13px;font-weight:500;margin-bottom:24px}
+.hero h1{font-size:clamp(32px,5vw,56px);font-weight:800;line-height:1.2;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:var(--text2);max-width:580px;margin:0 auto 40px;line-height:1.6}
+.sections-grid{max-width:1100px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.section-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,108,248,0.08),transparent);opacity:0;transition:opacity .25s}
+.section-card:hover{border-color:rgba(124,108,248,0.4);transform:translateY(-2px);box-shadow:0 8px 32px rgba(124,108,248,0.15)}
+.section-card:hover::before{opacity:1}
+.sc-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px}
+.sc-icon.purple{background:rgba(124,108,248,0.15)}
+.sc-icon.blue{background:rgba(59,130,246,0.15)}
+.sc-icon.green{background:rgba(16,185,129,0.15)}
+.sc-icon.orange{background:rgba(245,158,11,0.15)}
+.sc-icon.pink{background:rgba(236,72,153,0.15)}
+.sc-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.sc-desc{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.sc-badge{font-size:12px;color:var(--accent2);font-weight:500}
+.content-page{max-width:1100px;margin:0 auto;padding:32px 24px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2);margin-bottom:28px;flex-wrap:wrap}
+.breadcrumb span{cursor:pointer}.breadcrumb span:hover{color:var(--accent2)}
+.breadcrumb-sep{color:var(--border)}
+.page-title{font-size:28px;font-weight:700;margin-bottom:24px}
+.countries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.country-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+.country-card:hover{border-color:rgba(124,108,248,0.4);background:var(--surface2)}
+.country-flag{font-size:28px}
+.country-name{font-size:15px;font-weight:500}
+.country-arrow{margin-left:auto;color:var(--text2)}
+.degrees-list{display:flex;flex-direction:column;gap:12px}
+.degree-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:16px}
+.degree-card:hover{border-color:rgba(124,108,248,0.4);background:var(--surface2)}
+.degree-icon{font-size:32px}
+.degree-title{font-size:16px;font-weight:600}
+.degree-sub{font-size:13px;color:var(--text2);margin-top:4px}
+.degree-price{margin-left:auto;font-size:18px;font-weight:700;color:var(--gold)}
+.video-container{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:20px}
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-locked{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:16px;padding:40px;text-align:center}
+.lock-icon{font-size:48px}
+.locked-title{font-size:20px;font-weight:600}
+.locked-desc{font-size:14px;color:var(--text2);max-width:360px;line-height:1.6}
+.buy-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:14px 32px;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(124,108,248,0.4)}
+.buy-btn:hover{transform:scale(1.02)}
+.consult-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:700px){.consult-layout{grid-template-columns:1fr}}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px}
+.form-title{font-size:18px;font-weight:700;margin-bottom:20px}
+.form-group{margin-bottom:16px}
+.form-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:block}
+.form-input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--text);outline:none;transition:border-color .2s}
+.form-input:focus{border-color:var(--accent)}
+.dates-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.date-btn{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px}
+.date-btn.selected,.date-btn:hover{border-color:var(--accent);background:rgba(124,108,248,0.1);color:var(--accent2)}
+.times-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:280px;overflow-y:auto}
+.time-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 4px;text-align:center;cursor:pointer;transition:all .2s;font-size:12px}
+.time-btn.selected,.time-btn:hover{border-color:var(--accent);background:rgba(124,108,248,0.1);color:var(--accent2)}
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;padding:14px;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;margin-top:16px;transition:all .2s;box-shadow:0 4px 20px rgba(124,108,248,0.3)}
+.submit-btn:hover{transform:scale(1.01)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.contact-info{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.contact-item{display:flex;align-items:center;gap:12px;background:var(--surface2);border-radius:12px;padding:14px 16px;font-size:15px}
+.contact-item a{color:var(--accent2);font-weight:500}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:420px}
+.modal-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.modal-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
+.modal-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:24px}
+.modal-tab{flex:1;padding:8px;border:none;background:transparent;color:var(--text2);border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s}
+.modal-tab.active{background:var(--accent);color:white}
+.modal-close{float:right;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;margin-top:-8px}
+.error-msg{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:12px;display:none}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 20px;font-size:14px;z-index:2000;transform:translateY(100px);opacity:0;transition:all .3s;max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:var(--green);color:#6ee7b7}
+.toast.error{border-color:var(--red);color:#fca5a5}
+.success-page{text-align:center;padding:60px 20px}
+.success-page .s-icon{font-size:64px;margin-bottom:16px}
+.success-page h2{font-size:24px;font-weight:700;margin-bottom:8px}
+.success-page p{color:var(--text2);font-size:15px;line-height:1.6}
+@media(max-width:600px){.sections-grid{grid-template-columns:1fr}.countries-grid{grid-template-columns:repeat(2,1fr)}nav{padding:0 16px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">Zed Consult</div>
+  <div class="nav-links" id="nav-links">
+    <button class="nav-btn outline" onclick="openAuth('login')">Kirish</button>
+    <button class="nav-btn primary" onclick="openAuth('register')">Royxatdan otish</button>
+  </div>
+</nav>
+<div class="toast" id="toast"></div>
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAuth()">x</button>
+    <div class="modal-title">Xush kelibsiz</div>
+    <div class="modal-sub">Platformaga kirish uchun royxatdan oting</div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" onclick="switchTab('login')">Kirish</button>
+      <button class="modal-tab" id="tab-register" onclick="switchTab('register')">Royxatdan otish</button>
+    </div>
+    <div class="error-msg" id="auth-error"></div>
+    <div id="form-login">
+      <div class="form-group"><label class="form-label">Email yoki telefon</label><input class="form-input" id="login-id" type="text" placeholder="+998901234567 yoki email@mail.com"></div>
+      <div class="form-group"><label class="form-label">Parol</label><input class="form-input" id="login-pass" type="password" placeholder="Parol"></div>
+      <button class="submit-btn" onclick="doLogin()">Kirish</button>
+    </div>
+    <div id="form-register" style="display:none">
+      <div class="form-group"><label class="form-label">Toliq ism</label><input class="form-input" id="reg-name" type="text" placeholder="Ism Familiya"></div>
+      <div class="form-group"><label class="form-label">Email yoki telefon</label><input class="form-input" id="reg-id" type="text" placeholder="+998901234567 yoki email@mail.com"></div>
+      <div class="form-group"><label class="form-label">Parol</label><input class="form-input" id="reg-pass" type="password" placeholder="Kamida 6 ta belgi"></div>
+      <button class="submit-btn" onclick="doRegister()">Royxatdan otish</button>
+    </div>
+  </div>
+</div>
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge">🌍 Xalqaro talim platformasi</div>
+    <h1>Chet elda oqush va ishlash imkoniyati</h1>
+    <p>Universitetga topshirish, viza olish va ishga joylashish boyicha professional darsliklar</p>
+  </div>
+  <div class="sections-grid">
+    <div class="section-card" onclick="showSection('university')">
+      <div class="sc-icon purple">🎓</div>
+      <div class="sc-title">Universitetga topshirish</div>
+      <div class="sc-desc">17 ta davlat boyicha bakalavr, magistr va doktorantura dasturlariga topshirish</div>
+      <div class="sc-badge">17 davlat · 3 daraja →</div>
+    </div>
+    <div class="section-card" onclick="showSection('work')">
+      <div class="sc-icon green">💼</div>
+      <div class="sc-title">Ishga topshirish</div>
+      <div class="sc-desc">12 ta davlatda rasmiy ishga joylashish va hujjatlar tayyorlash</div>
+      <div class="sc-badge">12 davlat →</div>
+    </div>
+    <div class="section-card" onclick="showSection('visa')">
+      <div class="sc-icon blue">🛂</div>
+      <div class="sc-title">Vizaga topshirish</div>
+      <div class="sc-desc">Turli mamlakatlar uchun viza hujjatlarini togri tayyorlash</div>
+      <div class="sc-badge">17 davlat · 3 daraja →</div>
+    </div>
+    <div class="section-card" onclick="showPage('page-consult')">
+      <div class="sc-icon orange">📅</div>
+      <div class="sc-title">Konsultatsiya olish</div>
+      <div class="sc-desc">Mutaxassislar bilan 30 daqiqalik shaxsiy konsultatsiya</div>
+      <div class="sc-badge">100,000 som · 30 daqiqa →</div>
+    </div>
+    <div class="section-card" style="cursor:default" onmouseenter="this.style.transform=''" >
+      <div class="sc-icon pink">📞</div>
+      <div class="sc-title">Biz bilan aloqa</div>
+      <div class="sc-desc">Savollaringiz uchun bizga murojaat qiling</div>
+      <div class="contact-info">
+        <div class="contact-item">💬 <a href="https://t.me/kaccocii" target="_blank">@kaccocii</a></div>
+        <div class="contact-item">📧 <a href="mailto:info@zedconsult.uz">info@zedconsult.uz</a></div>
+        <div class="contact-item">📞 <a href="tel:+998901234567">+998 90 123 45 67</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page" id="page-courses">
+  <div class="content-page">
+    <div class="breadcrumb">
+      <span onclick="showPage('page-home')">Bosh sahifa</span>
+      <span class="breadcrumb-sep">›</span>
+      <span id="bc-section">—</span>
+      <span class="breadcrumb-sep" id="bc-sep2" style="display:none">›</span>
+      <span id="bc-country" style="display:none">—</span>
+    </div>
+    <div class="page-title" id="courses-title">Davlatni tanlang</div>
+    <div id="courses-content"></div>
+  </div>
+</div>
+<div class="page" id="page-video">
+  <div class="content-page">
+    <div class="breadcrumb">
+      <span onclick="showPage('page-home')">Bosh sahifa</span>
+      <span class="breadcrumb-sep">›</span>
+      <span id="bc-vs" onclick="goBackToSection()" style="cursor:pointer">—</span>
+      <span class="breadcrumb-sep">›</span>
+      <span id="bc-vt">—</span>
+    </div>
+    <div class="page-title" id="video-title">—</div>
+    <div class="video-container" id="video-container"></div>
+  </div>
+</div>
+<div class="page" id="page-consult">
+  <div class="content-page">
+    <div class="breadcrumb"><span onclick="showPage('page-home')">Bosh sahifa</span><span class="breadcrumb-sep">›</span><span>Konsultatsiya</span></div>
+    <div class="page-title">📅 Konsultatsiyaga yozilish</div>
+    <div class="consult-layout">
+      <div class="form-card" id="consult-form">
+        <div class="form-title">Malumotlaringiz</div>
+        <div class="form-group"><label class="form-label">Toliq ism</label><input class="form-input" id="c-name" placeholder="Ism Familiya" oninput="checkBook()"></div>
+        <div class="form-group"><label class="form-label">Telefon</label><input class="form-input" id="c-phone" placeholder="+998 90 000 00 00" oninput="checkBook()"></div>
+        <div class="form-group"><label class="form-label">Sana</label><div class="dates-grid" id="dates-grid"></div></div>
+        <div class="form-group"><label class="form-label">Vaqt</label><div class="times-grid" id="times-grid"></div></div>
+        <button class="submit-btn" id="book-btn" onclick="bookConsult()" disabled>Yozilish</button>
+      </div>
+      <div id="consult-done" style="display:none">
+        <div class="success-page">
+          <div class="s-icon">✅</div>
+          <h2>Muvaffaqiyatli yozildingiz!</h2>
+          <p>Tez orada admin siz bilan boqlanadi.<br>Telegram: <a href="https://t.me/kaccocii" style="color:var(--accent2)">@kaccocii</a></p>
+          <button class="submit-btn" style="max-width:200px;margin:24px auto 0" onclick="showPage('page-home')">Bosh sahifa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const SECTIONS={
+  university:{name:'Universitetga topshirish',countries:[
+    {flag:'🇦🇺',name:'Avstraliya'},{flag:'🇦🇪',name:'Birlashgan Arab Amirliklari'},
+    {flag:'🇬🇧',name:'Buyuk Britaniya'},{flag:'🇨🇦',name:'Kanada'},{flag:'🇨🇳',name:'Xitoy'},
+    {flag:'🇩🇪',name:'Germaniya'},{flag:'🇭🇺',name:'Vengriya'},{flag:'🇮🇹',name:'Italiya'},
+    {flag:'🇯🇵',name:'Yaponiya'},{flag:'🇰🇷',name:'Korea'},{flag:'🇱🇻',name:'Latviya'},
+    {flag:'🇲🇾',name:'Malaysiya'},{flag:'🇵🇱',name:'Polsha'},{flag:'🇶🇦',name:'Qatar'},
+    {flag:'🇸🇦',name:'Saudiya Arabistoni'},{flag:'🇸🇬',name:'Singapur'},{flag:'🇺🇸',name:'USA'}
+  ],degrees:[
+    {key:'bakalavr',title:'Bakalavrga topshirish',sub:'Bakalavr darajasi (4 yil)',icon:'🎓'},
+    {key:'magistr',title:'Magistraturaga topshirish',sub:'Magistr darajasi (2 yil)',icon:'📚'},
+    {key:'doktorantura',title:'Doktorantura',sub:'PhD darajasi (3-4 yil)',icon:'🔬'}
+  ]},
+  work:{name:'Ishga topshirish',countries:[
+    {flag:'🇷🇺',name:'Rossiya'},{flag:'🇰🇷',name:'Korea'},{flag:'🇹🇷',name:'Turkiya'},
+    {flag:'🇦🇪',name:'BAA (Dubai)'},{flag:'🇸🇦',name:'Saudiya Arabistoni'},{flag:'🇰🇿',name:'Qozogiston'},
+    {flag:'🇩🇪',name:'Germaniya'},{flag:'🇵🇱',name:'Polsha'},{flag:'🇨🇿',name:'Chexiya'},
+    {flag:'🇭🇺',name:'Vengriya'},{flag:'🇷🇴',name:'Ruminiya'},{flag:'🇨🇾',name:'Kipr'}
+  ],degrees:null},
+  visa:{name:'Vizaga topshirish',countries:[
+    {flag:'🇦🇺',name:'Avstraliya'},{flag:'🇦🇪',name:'Birlashgan Arab Amirliklari'},
+    {flag:'🇬🇧',name:'Buyuk Britaniya'},{flag:'🇨🇦',name:'Kanada'},{flag:'🇨🇳',name:'Xitoy'},
+    {flag:'🇩🇪',name:'Germaniya'},{flag:'🇭🇺',name:'Vengriya'},{flag:'🇮🇹',name:'Italiya'},
+    {flag:'🇯🇵',name:'Yaponiya'},{flag:'🇰🇷',name:'Korea'},{flag:'🇱🇻',name:'Latviya'},
+    {flag:'🇲🇾',name:'Malaysiya'},{flag:'🇵🇱',name:'Polsha'},{flag:'🇶🇦',name:'Qatar'},
+    {flag:'🇸🇦',name:'Saudiya Arabistoni'},{flag:'🇸🇬',name:'Singapur'},{flag:'🇺🇸',name:'USA'}
+  ],degrees:[
+    {key:'bakalavr',title:'Bakalavrga topshirish',sub:'Talaba vizasi',icon:'🎓'},
+    {key:'magistr',title:'Magistraturaga topshirish',sub:'Talaba vizasi',icon:'📚'},
+    {key:'doktorantura',title:'Doktorantura',sub:'Tadqiqot vizasi',icon:'🔬'}
+  ]}
+};
+let currentUser=null,currentSection='',currentCountry='';
+let selectedDate='',selectedTime='';
+
+async function init(){
+  try{const r=await fetch('/api/auth/me');if(r.ok){const d=await r.json();currentUser=d.user;}}catch(e){}
+  updateNav();buildDates();buildTimes();
+}
+function updateNav(){
+  const el=document.getElementById('nav-links');
+  if(currentUser){
+    el.innerHTML='<div class="nav-user"><span>'+currentUser.full_name+'</span></div><button class="nav-btn outline" onclick="doLogout()">Chiqish</button>';
+  }else{
+    el.innerHTML='<button class="nav-btn outline" onclick="openAuth('login')">Kirish</button><button class="nav-btn primary" onclick="openAuth('register')">Royxatdan otish</button>';
+  }
+}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function showSection(sec){
+  currentSection=sec;currentCountry='';
+  const s=SECTIONS[sec];
+  document.getElementById('bc-section').textContent=s.name;
+  document.getElementById('bc-country').style.display='none';
+  document.getElementById('bc-sep2').style.display='none';
+  document.getElementById('bc-vs').textContent=s.name;
+  document.getElementById('courses-title').textContent='Davlatni tanlang';
+  document.getElementById('courses-content').innerHTML='<div class="countries-grid">'+
+    s.countries.map(c=>'<div class="country-card" onclick="selectCountry(''+c.name+'',''+c.flag+'')"><span class="country-flag">'+c.flag+'</span><span class="country-name">'+c.name+'</span><span class="country-arrow">›</span></div>').join('')+'</div>';
+  showPage('page-courses');
+}
+function selectCountry(name,flag){
+  currentCountry=name;
+  const s=SECTIONS[currentSection];
+  document.getElementById('bc-country').textContent=flag+' '+name;
+  document.getElementById('bc-country').style.display='';
+  document.getElementById('bc-sep2').style.display='';
+  if(!s.degrees){
+    showVideo(currentSection,name,null);
+  }else{
+    document.getElementById('courses-title').textContent=flag+' '+name+' — Daraja tanlang';
+    document.getElementById('courses-content').innerHTML='<div class="degrees-list">'+
+      s.degrees.map(d=>'<div class="degree-card" onclick="showVideo(''+currentSection+'',''+name+'',''+d.key+'')"><span class="degree-icon">'+d.icon+'</span><div><div class="degree-title">'+d.title+'</div><div class="degree-sub">'+d.sub+'</div></div><div class="degree-price">$45</div></div>').join('')+'</div>';
+  }
+}
+async function showVideo(sec,country,degree){
+  const s=SECTIONS[sec];
+  const degLabel=degree?(s.degrees?.find(d=>d.key===degree)?.title||degree):'';
+  const title=country+(degLabel?' — '+degLabel:'');
+  document.getElementById('video-title').textContent=title;
+  document.getElementById('bc-vt').textContent=title;
+  if(!currentUser){
+    document.getElementById('video-container').innerHTML='<div class="video-locked"><div class="lock-icon">🔐</div><div class="locked-title">Kirish kerak</div><div class="locked-desc">Video korish uchun avval royxatdan oting</div><button class="buy-btn" onclick="openAuth('register')">Royxatdan otish</button></div>';
+    showPage('page-video');return;
+  }
+  let course=null;
+  try{
+    const params=new URLSearchParams({section:sec,country});
+    if(degree)params.append('degree',degree);
+    const r=await fetch('/api/courses/?'+params);
+    const list=await r.json();
+    course=list[0]||null;
+  }catch(e){}
+  if(!course){
+    document.getElementById('video-container').innerHTML='<div class="video-locked"><div class="lock-icon">🎬</div><div class="locked-title">Video tez orada qoshiladi</div><div class="locked-desc">Bu bolim uchun darslik tayyorlanmoqda</div></div>';
+    showPage('page-video');return;
+  }
+  try{
+    const r=await fetch('/api/courses/'+course.id+'/watch');
+    if(r.ok){
+      const d=await r.json();
+      document.getElementById('video-container').innerHTML='<div class="video-wrap"><iframe src="'+d.embed_url+'" allowfullscreen allow="autoplay"></iframe></div>';
+    }else if(r.status===403){
+      document.getElementById('video-container').innerHTML='<div class="video-locked"><div class="lock-icon">🔒</div><div class="locked-title">Bu kurs pullik</div><div class="locked-desc">Darslikni korish uchun sotib oling. Narx: $'+course.price+'</div><button class="buy-btn" onclick="showToast('Tolov tizimi tez orada ishga tushadi','success')">$'+course.price+' — Sotib olish</button></div>';
+    }
+  }catch(e){}
+  showPage('page-video');
+}
+function goBackToSection(){showSection(currentSection);}
+function openAuth(tab){document.getElementById('auth-modal').classList.add('open');switchTab(tab);document.getElementById('auth-error').style.display='none';}
+function closeAuth(){document.getElementById('auth-modal').classList.remove('open');}
+function switchTab(tab){
+  document.getElementById('form-login').style.display=tab==='login'?'':'none';
+  document.getElementById('form-register').style.display=tab==='register'?'':'none';
+  document.getElementById('tab-login').className='modal-tab'+(tab==='login'?' active':'');
+  document.getElementById('tab-register').className='modal-tab'+(tab==='register'?' active':'');
+  document.getElementById('auth-error').style.display='none';
+}
+async function doLogin(){
+  const login=document.getElementById('login-id').value.trim();
+  const password=document.getElementById('login-pass').value;
+  if(!login||!password)return showAuthErr('Barcha maydonlarni toldiping');
+  const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({login,password})});
+  const d=await r.json();
+  if(!r.ok)return showAuthErr(d.detail||'Xatolik');
+  currentUser=d.user;updateNav();closeAuth();showToast('Xush kelibsiz, '+d.user.full_name+'!','success');
+}
+async function doRegister(){
+  const full_name=document.getElementById('reg-name').value.trim();
+  const id=document.getElementById('reg-id').value.trim();
+  const password=document.getElementById('reg-pass').value;
+  if(!full_name||!id||!password)return showAuthErr('Barcha maydonlarni toldiping');
+  if(password.length<6)return showAuthErr('Parol kamida 6 ta belgi bolishi kerak');
+  const body={full_name,password};
+  if(id.includes('@'))body.email=id;else body.phone=id;
+  const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const d=await r.json();
+  if(!r.ok)return showAuthErr(d.detail||'Xatolik');
+  currentUser=d.user;updateNav();closeAuth();showToast('Xush kelibsiz, '+d.user.full_name+'!','success');
+}
+async function doLogout(){
+  await fetch('/api/auth/logout',{method:'POST'});
+  currentUser=null;updateNav();showPage('page-home');showToast('Chiqildi','success');
+}
+function showAuthErr(msg){const el=document.getElementById('auth-error');el.textContent=msg;el.style.display='';}
+function buildDates(){
+  const months=['Yan','Fev','Mar','Apr','May','Iyn','Iyl','Avg','Sen','Okt','Noy','Dek'];
+  const days=['Yak','Du','Se','Cho','Pa','Ju','Sha'];
+  let h='';
+  for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()+i);const l=i===0?'Bugun':i===1?'Ertaga':days[d.getDay()];const v=d.toLocaleDateString('ru');h+='<div class="date-btn" onclick="selDate(this,''+v+'')">'+d.getDate()+' '+months[d.getMonth()]+'<br><small>'+l+'</small></div>';}
+  document.getElementById('dates-grid').innerHTML=h;
+}
+function buildTimes(){
+  const slots=['09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00','14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30','17:30-18:00','18:00-18:30','18:30-19:00','19:00-19:30','19:30-20:00','20:00-20:30','20:30-21:00'];
+  document.getElementById('times-grid').innerHTML=slots.map(s=>'<div class="time-btn" onclick="selTime(this,''+s+'')">'+s+'</div>').join('');
+}
+function selDate(el,v){document.querySelectorAll('.date-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');selectedDate=v;checkBook();}
+function selTime(el,v){document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');selectedTime=v;checkBook();}
+function checkBook(){
+  const n=document.getElementById('c-name').value.trim();
+  const p=document.getElementById('c-phone').value.trim();
+  document.getElementById('book-btn').disabled=!(n&&p&&selectedDate&&selectedTime);
+}
+async function bookConsult(){
+  const btn=document.getElementById('book-btn');btn.disabled=true;btn.textContent='Yuborilmoqda...';
+  const r=await fetch('/api/consult/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({full_name:document.getElementById('c-name').value.trim(),phone:document.getElementById('c-phone').value.trim(),date:selectedDate,time_slot:selectedTime})});
+  const d=await r.json();
+  if(!r.ok){showToast(d.detail||'Xatolik','error');btn.disabled=false;btn.textContent='Yozilish';return;}
+  document.getElementById('consult-form').style.display='none';
+  document.getElementById('consult-done').style.display='';
+}
+function showToast(msg,type='success'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+type;setTimeout(()=>t.className='toast',3000);}
+document.getElementById('auth-modal').addEventListener('click',function(e){if(e.target===this)closeAuth();});
+init();
+</script>
+</body>
+</html>
