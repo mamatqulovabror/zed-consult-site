@@ -16,11 +16,15 @@ app.include_router(auth_router)
 app.include_router(courses_router)
 app.include_router(consult_router)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
 @app.get("/admin")
 async def serve_admin():
     return FileResponse("static/admin/index.html")
+
+@app.get("/")
+async def serve_home():
+    return FileResponse("static/index.html")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/{full_path:path}")
 async def serve_frontend(full_path: str):
