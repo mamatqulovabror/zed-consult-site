@@ -18,6 +18,10 @@ app.include_router(consult_router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/admin")
+async def serve_admin():
+    return FileResponse("static/admin/index.html")
+
 @app.get("/{full_path:path}")
 async def serve_frontend(full_path: str):
     return FileResponse("static/index.html")

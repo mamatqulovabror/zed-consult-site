@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zed Consult — Admin Panel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0f13;--s1:#1a1a24;--s2:#22222f;--bd:#2a2a3a;--ac:#7c6cf8;--ac2:#a89bf9;--gd:#f59e0b;--tx:#f1f1f5;--t2:#8b8b9e;--gr:#10b981;--rd:#ef4444}
+body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;min-height:100vh}
+nav{background:rgba(15,15,19,.98);border-bottom:1px solid var(--bd);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo span{color:var(--rd);font-size:12px;background:rgba(239,68,68,.15);-webkit-background-clip:unset;-webkit-text-fill-color:var(--rd);padding:2px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+.nbtn{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid var(--bd);background:transparent;color:var(--t2);transition:all .2s}
+.nbtn:hover{border-color:var(--ac);color:var(--ac2)}
+.wrap{max-width:1000px;margin:0 auto;padding:32px 24px}
+/* LOGIN */
+.login-box{max-width:380px;margin:80px auto;background:var(--s1);border:1px solid var(--bd);border-radius:20px;padding:32px}
+.login-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.login-sub{font-size:14px;color:var(--t2);margin-bottom:24px}
+.fg{margin-bottom:14px}
+.fl{font-size:13px;color:var(--t2);margin-bottom:6px;display:block}
+.finp{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;font-size:15px;color:var(--tx);outline:none;transition:border-color .2s}
+.finp:focus{border-color:var(--ac)}
+.sbtn{width:100%;background:linear-gradient(135deg,var(--ac),var(--ac2));color:white;border:none;padding:13px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .2s}
+.sbtn:hover{opacity:.9}
+.sbtn:disabled{opacity:.5;cursor:not-allowed}
+.errmsg{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:12px;display:none}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:20px}
+.stat-num{font-size:32px;font-weight:800;color:var(--ac2);margin-bottom:4px}
+.stat-lbl{font-size:13px;color:var(--t2)}
+/* SECTION TABS */
+.tabs{display:flex;gap:4px;background:var(--s2);border-radius:12px;padding:4px;margin-bottom:24px}
+.tab{flex:1;padding:10px;border:none;background:transparent;color:var(--t2);border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s}
+.tab.on{background:var(--ac);color:white}
+/* FORM CARD */
+.form-card{background:var(--s1);border:1px solid var(--bd);border-radius:16px;padding:24px;margin-bottom:24px}
+.form-title{font-size:16px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row.full{grid-template-columns:1fr}
+select.finp{cursor:pointer}
+.addbtn{background:linear-gradient(135deg,var(--ac),var(--ac2));color:white;border:none;padding:11px 24px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.addbtn:hover{opacity:.9}
+.addbtn:disabled{opacity:.5;cursor:not-allowed}
+/* TABLE */
+.table-card{background:var(--s1);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+.table-head{display:grid;padding:12px 16px;background:var(--s2);font-size:12px;color:var(--t2);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.table-row{display:grid;padding:14px 16px;border-top:1px solid var(--bd);align-items:center;font-size:14px}
+.table-row:hover{background:var(--s2)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge.uni{background:rgba(124,108,248,.2);color:var(--ac2)}
+.badge.work{background:rgba(16,185,129,.2);color:#6ee7b7}
+.badge.visa{background:rgba(59,130,246,.2);color:#93c5fd}
+.delbtn{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:5px 12px;border-radius:8px;font-size:12px;cursor:pointer;transition:all .2s}
+.delbtn:hover{background:rgba(239,68,68,.2)}
+.empty{text-align:center;padding:40px;color:var(--t2);font-size:14px}
+/* CONSULT TABLE */
+.ctab-grid{grid-template-columns:1fr 1fr 1fr 1fr auto}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 20px;font-size:14px;z-index:2000;transform:translateY(100px);opacity:0;transition:all .3s}
+.toast.on{transform:translateY(0);opacity:1}
+.toast.ok{border-color:var(--gr);color:#6ee7b7}
+.toast.err{border-color:var(--rd);color:#fca5a5}
+@media(max-width:600px){.stats{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Zed Consult <span>ADMIN</span></div>
+  <button class="nbtn" id="btnLogout" style="display:none">Chiqish</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<!-- LOGIN PAGE -->
+<div id="page-login">
+  <div class="login-box">
+    <div class="login-title">Admin kirish</div>
+    <div class="login-sub">Faqat admin hisobiga kirish mumkin</div>
+    <div class="errmsg" id="errmsg"></div>
+    <div class="fg"><label class="fl">Email yoki telefon</label><input class="finp" id="in-id" type="text" placeholder="admin@zedconsult.uz"></div>
+    <div class="fg"><label class="fl">Parol</label><input class="finp" id="in-pw" type="password" placeholder="Parol"></div>
+    <button class="sbtn" id="btnLogin">Kirish</button>
+  </div>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="page-admin" style="display:none">
+  <div class="wrap">
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num" id="stat-courses">—</div><div class="stat-lbl">Kurslar</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-consults">—</div><div class="stat-lbl">Konsultatsiyalar</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-users">—</div><div class="stat-lbl">Foydalanuvchilar</div></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab on" id="tab0">Kurslar</button>
+      <button class="tab" id="tab1">Konsultatsiyalar</button>
+    </div>
+
+    <!-- KURSLAR TAB -->
+    <div id="sec-courses">
+      <!-- Add course form -->
+      <div class="form-card">
+        <div class="form-title">➕ Yangi kurs qo'shish</div>
+        <div class="form-row">
+          <div class="fg">
+            <label class="fl">Bo'lim</label>
+            <select class="finp" id="f-section">
+              <option value="university">Universitetga topshirish</option>
+              <option value="work">Ishga topshirish</option>
+              <option value="visa">Vizaga topshirish</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl">Daraja (university/visa uchun)</label>
+            <select class="finp" id="f-degree">
+              <option value="">— (ishga topshirish)</option>
+              <option value="bakalavr">Bakalavr</option>
+              <option value="magistr">Magistr</option>
+              <option value="doktorantura">Doktorantura</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label class="fl">Davlat</label>
+            <select class="finp" id="f-country"></select>
+          </div>
+          <div class="fg">
+            <label class="fl">Narx ($)</label>
+            <input class="finp" id="f-price" type="number" value="45" min="1">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="fg">
+            <label class="fl">Bunny.net Video ID</label>
+            <input class="finp" id="f-video" type="text" placeholder="Bunny Stream dan video ID ni kiriting">
+          </div>
+        </div>
+        <button class="addbtn" id="btnAdd">Qo'shish</button>
+      </div>
+
+      <!-- Courses table -->
+      <div class="table-card">
+        <div class="table-head" style="grid-template-columns:1fr 1fr 1fr 100px 80px">
+          <span>Bo'lim</span><span>Davlat</span><span>Daraja</span><span>Narx</span><span></span>
+        </div>
+        <div id="courses-list"><div class="empty">Yuklanmoqda...</div></div>
+      </div>
+    </div>
+
+    <!-- KONSULTATSIYALAR TAB -->
+    <div id="sec-consults" style="display:none">
+      <div class="table-card">
+        <div class="table-head ctab-grid">
+          <span>Ism</span><span>Telefon</span><span>Sana</span><span>Vaqt</span><span>Holat</span>
+        </div>
+        <div id="consults-list"><div class="empty">Yuklanmoqda...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var COUNTRIES = {
+  university: ['Avstraliya','BAA','Buyuk Britaniya','Kanada','Xitoy','Germaniya','Vengriya','Italiya','Yaponiya','Korea','Latviya','Malaysiya','Polsha','Qatar','Saudiya Arabistoni','Singapur','USA'],
+  work: ['Rossiya','Korea','Turkiya','BAA (Dubai)','Saudiya Arabistoni','Qozogiston','Germaniya','Polsha','Chexiya','Vengriya','Ruminiya','Kipr'],
+  visa: ['Avstraliya','BAA','Buyuk Britaniya','Kanada','Xitoy','Germaniya','Vengriya','Italiya','Yaponiya','Korea','Latviya','Malaysiya','Polsha','Qatar','Saudiya Arabistoni','Singapur','USA']
+};
+
+function showToast(msg, tp) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast on ' + (tp || 'ok');
+  setTimeout(function() { t.className = 'toast'; }, 3000);
+}
+
+function showErr(msg) {
+  var e = document.getElementById('errmsg');
+  e.textContent = msg;
+  e.style.display = '';
+}
+
+// Update country list when section changes
+function updateCountries() {
+  var sec = document.getElementById('f-section').value;
+  var sel = document.getElementById('f-country');
+  sel.innerHTML = COUNTRIES[sec].map(function(c) {
+    return '<option value="' + c + '">' + c + '</option>';
+  }).join('');
+}
+
+document.getElementById('f-section').addEventListener('change', updateCountries);
+updateCountries();
+
+// Login
+document.getElementById('btnLogin').addEventListener('click', function() {
+  var id = document.getElementById('in-id').value.trim();
+  var pw = document.getElementById('in-pw').value;
+  if (!id || !pw) return showErr('Barcha maydonlarni toldiping');
+  var btn = document.getElementById('btnLogin');
+  btn.disabled = true;
+  btn.textContent = 'Kirilmoqda...';
+  fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({login: id, password: pw})
+  }).then(function(r) {
+    return r.json().then(function(d) { return {ok: r.ok, d: d}; });
+  }).then(function(res) {
+    btn.disabled = false;
+    btn.textContent = 'Kirish';
+    if (!res.ok) return showErr(res.d.detail || 'Xatolik');
+    // Check if admin
+    fetch('/api/auth/me').then(function(r2) { return r2.json(); }).then(function(me) {
+      if (!me.user || !me.user.is_admin) {
+        showErr('Siz admin emassiz');
+        fetch('/api/auth/logout', {method: 'POST'});
+        return;
+      }
+      document.getElementById('page-login').style.display = 'none';
+      document.getElementById('page-admin').style.display = '';
+      document.getElementById('btnLogout').style.display = '';
+      loadAll();
+    });
+  });
+});
+
+document.getElementById('in-pw').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('btnLogin').click();
+});
+
+// Logout
+document.getElementById('btnLogout').addEventListener('click', function() {
+  fetch('/api/auth/logout', {method: 'POST'}).then(function() {
+    document.getElementById('page-login').style.display = '';
+    document.getElementById('page-admin').style.display = 'none';
+    document.getElementById('btnLogout').style.display = 'none';
+  });
+});
+
+// Tabs
+document.getElementById('tab0').addEventListener('click', function() {
+  document.getElementById('tab0').className = 'tab on';
+  document.getElementById('tab1').className = 'tab';
+  document.getElementById('sec-courses').style.display = '';
+  document.getElementById('sec-consults').style.display = 'none';
+});
+document.getElementById('tab1').addEventListener('click', function() {
+  document.getElementById('tab0').className = 'tab';
+  document.getElementById('tab1').className = 'tab on';
+  document.getElementById('sec-courses').style.display = 'none';
+  document.getElementById('sec-consults').style.display = '';
+  loadConsults();
+});
+
+// Add course
+document.getElementById('btnAdd').addEventListener('click', function() {
+  var sec = document.getElementById('f-section').value;
+  var country = document.getElementById('f-country').value;
+  var degree = document.getElementById('f-degree').value || null;
+  var price = parseFloat(document.getElementById('f-price').value) || 45;
+  var videoId = document.getElementById('f-video').value.trim();
+  if (!videoId) return showToast('Video ID kiriting', 'err');
+  var btn = document.getElementById('btnAdd');
+  btn.disabled = true;
+  btn.textContent = 'Qoshilmoqda...';
+  var title = country + (degree ? ' - ' + degree : '');
+  fetch('/api/courses/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({section: sec, country: country, degree: degree, title: title, price: price, bunny_video_id: videoId})
+  }).then(function(r) { return r.json().then(function(d) { return {ok: r.ok, d: d}; }); })
+  .then(function(res) {
+    btn.disabled = false;
+    btn.textContent = "Qo'shish";
+    if (!res.ok) return showToast(res.d.detail || 'Xatolik', 'err');
+    document.getElementById('f-video').value = '';
+    showToast("Kurs qo'shildi!", 'ok');
+    loadCourses();
+  });
+});
+
+function loadAll() {
+  loadCourses();
+  loadStats();
+}
+
+function loadStats() {
+  fetch('/api/courses/').then(function(r) { return r.json(); }).then(function(d) {
+    document.getElementById('stat-courses').textContent = d.length;
+  });
+  fetch('/api/consult/all').then(function(r) { return r.json(); }).then(function(d) {
+    document.getElementById('stat-consults').textContent = d.length;
+  }).catch(function() {});
+}
+
+function loadCourses() {
+  fetch('/api/courses/').then(function(r) { return r.json(); }).then(function(courses) {
+    var el = document.getElementById('courses-list');
+    if (!courses.length) { el.innerHTML = '<div class="empty">Kurslar yoq</div>'; return; }
+    el.innerHTML = courses.map(function(c) {
+      var secLabel = c.section === 'university' ? 'Universitet' : c.section === 'work' ? 'Ish' : 'Viza';
+      var secCls = c.section;
+      return '<div class="table-row" style="grid-template-columns:1fr 1fr 1fr 100px 80px">' +
+        '<span><span class="badge ' + secCls + '">' + secLabel + '</span></span>' +
+        '<span>' + c.country + '</span>' +
+        '<span>' + (c.degree || '—') + '</span>' +
+        '<span>$' + c.price + '</span>' +
+        '<span><button class="delbtn" data-id="' + c.id + '">Ochirish</button></span>' +
+        '</div>';
+    }).join('');
+    document.querySelectorAll('.delbtn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (!confirm("Bu kursni o'chirmoqchimisiz?")) return;
+        fetch('/api/courses/' + btn.dataset.id, {method: 'DELETE'})
+        .then(function(r) { return r.json(); })
+        .then(function() { showToast("Kurs o'chirildi", 'ok'); loadCourses(); loadStats(); });
+      });
+    });
+  });
+}
+
+function loadConsults() {
+  fetch('/api/consult/all').then(function(r) { return r.json(); }).then(function(items) {
+    var el = document.getElementById('consults-list');
+    if (!items.length) { el.innerHTML = '<div class="empty">Konsultatsiyalar yoq</div>'; return; }
+    el.innerHTML = items.map(function(c) {
+      return '<div class="table-row ctab-grid">' +
+        '<span>' + c.full_name + '</span>' +
+        '<span>' + c.phone + '</span>' +
+        '<span>' + c.date + '</span>' +
+        '<span>' + c.time_slot + '</span>' +
+        '<span><span class="badge ' + (c.status === 'pending' ? 'uni' : 'work') + '">' + c.status + '</span></span>' +
+        '</div>';
+    }).join('');
+  }).catch(function() {
+    document.getElementById('consults-list').innerHTML = '<div class="empty">Yuklab bolmadi</div>';
+  });
+}
+
+// Check if already logged in
+fetch('/api/auth/me').then(function(r) { return r.json(); }).then(function(d) {
+  if (d.user && d.user.is_admin) {
+    document.getElementById('page-login').style.display = 'none';
+    document.getElementById('page-admin').style.display = '';
+    document.getElementById('btnLogout').style.display = '';
+    loadAll();
+  }
+});
+</script>
+</body>
+</html>
