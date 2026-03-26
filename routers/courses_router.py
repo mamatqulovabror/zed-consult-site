@@ -65,3 +65,15 @@ def update(course_id: int, body: CourseBody, token: Optional[str] = Cookie(None)
         setattr(c, k, v)
     db.commit()
     return {"ok": True}
+
+@router.delete("/{course_id}")
+def delete_course(course_id: int, token: Optional[str] = Cookie(None), db: Session = Depends(get_db)):
+    user = get_user_from_token(token, db)
+    if not user or not user.is_admin:
+        raise HTTPException(403, "Admin kerak")
+    c = db.query(Course).filter(Course.id == course_id).first()
+    if not c:
+        raise HTTPException(404, "Topilmadi")
+    c.is_active = False
+    db.commit()
+    return {"ok": True}
