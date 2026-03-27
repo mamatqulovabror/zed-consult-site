@@ -68,7 +68,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(9,9,15,0.92);backdrop-filt
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
 .cit{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px}
 .cit:hover{border-color:rgba(201,169,110,0.3);background:var(--s2);transform:translateY(-1px)}
-.cf{font-size:11px;font-weight:700;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);color:var(--ac);padding:3px 7px;border-radius:5px;letter-spacing:0.05em;min-width:32px;text-align:center}.cn{font-size:14px;font-weight:500;color:var(--tx)}.ca{margin-left:auto;color:var(--t3);font-size:14px;transition:color .2s}
+.cf{display:inline-block;width:32px;height:22px;border-radius:4px;overflow:hidden;vertical-align:middle;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.cf img{width:100%;height:100%;object-fit:cover;display:block}.cn{font-size:14px;font-weight:500;color:var(--tx)}.ca{margin-left:auto;color:var(--t3);font-size:14px;transition:color .2s}
 .cit:hover .ca{color:var(--ac)}
 .dlist{display:flex;flex-direction:column;gap:10px}
 .dc{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:22px 24px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:18px}
@@ -252,30 +253,30 @@ nav{position:sticky;top:0;z-index:100;background:rgba(9,9,15,0.92);backdrop-filt
 <script>
 var SEC = {
   university: {nm: 'Universitetga topshirish', c: [
-    {f:'AU',n:'AU Avstraliya'},{f:'AE',n:'AE BAA'},
-    {f:'GB',n:'GB Buyuk Britaniya'},{f:'CA',n:'CA Kanada'},{f:'CN',n:'CN Xitoy'},
-    {f:'DE',n:'DE Germaniya'},{f:'HU',n:'HU Vengriya'},{f:'IT',n:'IT Italiya'},
-    {f:'JP',n:'JP Yaponiya'},{f:'KR',n:'KR Korea'},{f:'LV',n:'LV Latviya'},
-    {f:'MY',n:'MY Malaysiya'},{f:'PL',n:'PL Polsha'},{f:'QA',n:'QA Qatar'},
-    {f:'SA',n:'SA Saudiya Arabistoni'},{f:'SG',n:'SG Singapur'},{f:'US',n:'US USA'}
+    {f:'<img src=\'https://flagcdn.com/w40/au.png\' alt=\'AU\'>',n:'Avstraliya'},{f:'<img src=\'https://flagcdn.com/w40/ae.png\' alt=\'AE\'>',n:'BAA'},
+    {f:'<img src=\'https://flagcdn.com/w40/gb.png\' alt=\'GB\'>',n:'Buyuk Britaniya'},{f:'<img src=\'https://flagcdn.com/w40/ca.png\' alt=\'CA\'>',n:'Kanada'},{f:'<img src=\'https://flagcdn.com/w40/cn.png\' alt=\'CN\'>',n:'Xitoy'},
+    {f:'<img src=\'https://flagcdn.com/w40/de.png\' alt=\'DE\'>',n:'Germaniya'},{f:'<img src=\'https://flagcdn.com/w40/hu.png\' alt=\'HU\'>',n:'Vengriya'},{f:'<img src=\'https://flagcdn.com/w40/it.png\' alt=\'IT\'>',n:'Italiya'},
+    {f:'<img src=\'https://flagcdn.com/w40/jp.png\' alt=\'JP\'>',n:'Yaponiya'},{f:'<img src=\'https://flagcdn.com/w40/kr.png\' alt=\'KR\'>',n:'Korea'},{f:'<img src=\'https://flagcdn.com/w40/lv.png\' alt=\'LV\'>',n:'Latviya'},
+    {f:'<img src=\'https://flagcdn.com/w40/my.png\' alt=\'MY\'>',n:'Malaysiya'},{f:'<img src=\'https://flagcdn.com/w40/pl.png\' alt=\'PL\'>',n:'Polsha'},{f:'<img src=\'https://flagcdn.com/w40/qa.png\' alt=\'QA\'>',n:'Qatar'},
+    {f:'<img src=\'https://flagcdn.com/w40/sa.png\' alt=\'SA\'>',n:'Saudiya Arabistoni'},{f:'<img src=\'https://flagcdn.com/w40/sg.png\' alt=\'SG\'>',n:'Singapur'},{f:'<img src=\'https://flagcdn.com/w40/us.png\' alt=\'US\'>',n:'USA'}
   ], d: [
     {k:'bakalavr',t:'Bakalavrga topshirish',s:'Bakalavr (4 yil)',i:'&#127891;'},
     {k:'magistr',t:'Magistraturaga topshirish',s:'Magistr (2 yil)',i:'&#128218;'},
     {k:'doktorantura',t:'Doktorantura',s:'PhD (3-4 yil)',i:'&#128300;'}
   ]},
   work: {nm: 'Ishga topshirish', c: [
-    {f:'RU',n:'RU Rossiya'},{f:'KR',n:'KR Korea'},{f:'TR',n:'TR Turkiya'},
-    {f:'AE',n:'AE BAA (Dubai)'},{f:'SA',n:'SA Saudiya Arabistoni'},{f:'KZ',n:"KZ Qozog'iston"},
-    {f:'DE',n:'DE Germaniya'},{f:'PL',n:'PL Polsha'},{f:'CZ',n:'CZ Chexiya'},
-    {f:'HU',n:'HU Vengriya'},{f:'RO',n:'RO Ruminiya'},{f:'CY',n:'CY Kipr'}
+    {f:'<img src=\'https://flagcdn.com/w40/ru.png\' alt=\'RU\'>',n:'Rossiya'},{f:'<img src=\'https://flagcdn.com/w40/kr.png\' alt=\'KR\'>',n:'Korea'},{f:'<img src=\'https://flagcdn.com/w40/tr.png\' alt=\'TR\'>',n:'Turkiya'},
+    {f:'<img src=\'https://flagcdn.com/w40/ae.png\' alt=\'AE\'>',n:'BAA (Dubai)'},{f:'<img src=\'https://flagcdn.com/w40/sa.png\' alt=\'SA\'>',n:'Saudiya Arabistoni'},{f:'<img src=\'https://flagcdn.com/w40/kz.png\' alt=\'KZ\'>',n:"KZ Qozog'iston"},
+    {f:'<img src=\'https://flagcdn.com/w40/de.png\' alt=\'DE\'>',n:'Germaniya'},{f:'<img src=\'https://flagcdn.com/w40/pl.png\' alt=\'PL\'>',n:'Polsha'},{f:'<img src=\'https://flagcdn.com/w40/cz.png\' alt=\'CZ\'>',n:'Chexiya'},
+    {f:'<img src=\'https://flagcdn.com/w40/hu.png\' alt=\'HU\'>',n:'Vengriya'},{f:'<img src=\'https://flagcdn.com/w40/ro.png\' alt=\'RO\'>',n:'Ruminiya'},{f:'<img src=\'https://flagcdn.com/w40/cy.png\' alt=\'CY\'>',n:'Kipr'}
   ], d: null},
   visa: {nm: 'Vizaga topshirish', c: [
-    {f:'AU',n:'AU Avstraliya'},{f:'AE',n:'AE BAA'},
-    {f:'GB',n:'GB Buyuk Britaniya'},{f:'CA',n:'CA Kanada'},{f:'CN',n:'CN Xitoy'},
-    {f:'DE',n:'DE Germaniya'},{f:'HU',n:'HU Vengriya'},{f:'IT',n:'IT Italiya'},
-    {f:'JP',n:'JP Yaponiya'},{f:'KR',n:'KR Korea'},{f:'LV',n:'LV Latviya'},
-    {f:'MY',n:'MY Malaysiya'},{f:'PL',n:'PL Polsha'},{f:'QA',n:'QA Qatar'},
-    {f:'SA',n:'SA Saudiya Arabistoni'},{f:'SG',n:'SG Singapur'},{f:'US',n:'US USA'}
+    {f:'<img src=\'https://flagcdn.com/w40/au.png\' alt=\'AU\'>',n:'Avstraliya'},{f:'<img src=\'https://flagcdn.com/w40/ae.png\' alt=\'AE\'>',n:'BAA'},
+    {f:'<img src=\'https://flagcdn.com/w40/gb.png\' alt=\'GB\'>',n:'Buyuk Britaniya'},{f:'<img src=\'https://flagcdn.com/w40/ca.png\' alt=\'CA\'>',n:'Kanada'},{f:'<img src=\'https://flagcdn.com/w40/cn.png\' alt=\'CN\'>',n:'Xitoy'},
+    {f:'<img src=\'https://flagcdn.com/w40/de.png\' alt=\'DE\'>',n:'Germaniya'},{f:'<img src=\'https://flagcdn.com/w40/hu.png\' alt=\'HU\'>',n:'Vengriya'},{f:'<img src=\'https://flagcdn.com/w40/it.png\' alt=\'IT\'>',n:'Italiya'},
+    {f:'<img src=\'https://flagcdn.com/w40/jp.png\' alt=\'JP\'>',n:'Yaponiya'},{f:'<img src=\'https://flagcdn.com/w40/kr.png\' alt=\'KR\'>',n:'Korea'},{f:'<img src=\'https://flagcdn.com/w40/lv.png\' alt=\'LV\'>',n:'Latviya'},
+    {f:'<img src=\'https://flagcdn.com/w40/my.png\' alt=\'MY\'>',n:'Malaysiya'},{f:'<img src=\'https://flagcdn.com/w40/pl.png\' alt=\'PL\'>',n:'Polsha'},{f:'<img src=\'https://flagcdn.com/w40/qa.png\' alt=\'QA\'>',n:'Qatar'},
+    {f:'<img src=\'https://flagcdn.com/w40/sa.png\' alt=\'SA\'>',n:'Saudiya Arabistoni'},{f:'<img src=\'https://flagcdn.com/w40/sg.png\' alt=\'SG\'>',n:'Singapur'},{f:'<img src=\'https://flagcdn.com/w40/us.png\' alt=\'US\'>',n:'USA'}
   ], d: [
     {k:'bakalavr',t:'Bakalavrga topshirish',s:'Talaba vizasi',i:'&#127891;'},
     {k:'magistr',t:'Magistraturaga topshirish',s:'Talaba vizasi',i:'&#128218;'},
