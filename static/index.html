@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Zed Consult</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/twemoji.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -69,7 +68,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(9,9,15,0.92);backdrop-filt
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
 .cit{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px}
 .cit:hover{border-color:rgba(201,169,110,0.3);background:var(--s2);transform:translateY(-1px)}
-.cf{font-size:26px}.cn{font-size:14px;font-weight:500;color:var(--tx)}.ca{margin-left:auto;color:var(--t3);font-size:14px;transition:color .2s}
+.cf{font-size:11px;font-weight:700;background:rgba(201,169,110,0.15);border:1px solid rgba(201,169,110,0.3);color:var(--ac);padding:3px 7px;border-radius:5px;letter-spacing:0.05em;min-width:32px;text-align:center}.cn{font-size:14px;font-weight:500;color:var(--tx)}.ca{margin-left:auto;color:var(--t3);font-size:14px;transition:color .2s}
 .cit:hover .ca{color:var(--ac)}
 .dlist{display:flex;flex-direction:column;gap:10px}
 .dc{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:22px 24px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:18px}
@@ -125,7 +124,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(9,9,15,0.92);backdrop-filt
 .succ .si{font-size:56px;margin-bottom:20px;display:block}
 .succ h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin-bottom:10px;color:var(--tx)}
 .succ p{color:var(--t2);font-size:15px;line-height:1.65;font-weight:300}
-img.emoji{height:1.4em;width:1.4em;vertical-align:-0.3em;display:inline-block}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--s1)}
 ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:4px}
@@ -254,30 +252,30 @@ img.emoji{height:1.4em;width:1.4em;vertical-align:-0.3em;display:inline-block}
 <script>
 var SEC = {
   university: {nm: 'Universitetga topshirish', c: [
-    {f:'&#127462;&#127482;',n:'&#127462;&#127482; Avstraliya'},{f:'&#127462;&#127466;',n:'&#127462;&#127466; BAA'},
-    {f:'&#127468;&#127463;',n:'&#127468;&#127463; Buyuk Britaniya'},{f:'&#127464;&#127462;',n:'&#127464;&#127462; Kanada'},{f:'&#127464;&#127475;',n:'&#127464;&#127475; Xitoy'},
-    {f:'&#127465;&#127466;',n:'&#127465;&#127466; Germaniya'},{f:'&#127469;&#127482;',n:'&#127469;&#127482; Vengriya'},{f:'&#127470;&#127481;',n:'&#127470;&#127481; Italiya'},
-    {f:'&#127471;&#127477;',n:'&#127471;&#127477; Yaponiya'},{f:'&#127472;&#127479;',n:'&#127472;&#127479; Korea'},{f:'&#127473;&#127483;',n:'&#127473;&#127483; Latviya'},
-    {f:'&#127474;&#127486;',n:'&#127474;&#127486; Malaysiya'},{f:'&#127477;&#127473;',n:'&#127477;&#127473; Polsha'},{f:'&#127478;&#127462;',n:'&#127478;&#127462; Qatar'},
-    {f:'&#127480;&#127462;',n:'&#127480;&#127462; Saudiya Arabistoni'},{f:'&#127480;&#127468;',n:'&#127480;&#127468; Singapur'},{f:'&#127482;&#127480;',n:'&#127482;&#127480; USA'}
+    {f:'AU',n:'AU Avstraliya'},{f:'AE',n:'AE BAA'},
+    {f:'GB',n:'GB Buyuk Britaniya'},{f:'CA',n:'CA Kanada'},{f:'CN',n:'CN Xitoy'},
+    {f:'DE',n:'DE Germaniya'},{f:'HU',n:'HU Vengriya'},{f:'IT',n:'IT Italiya'},
+    {f:'JP',n:'JP Yaponiya'},{f:'KR',n:'KR Korea'},{f:'LV',n:'LV Latviya'},
+    {f:'MY',n:'MY Malaysiya'},{f:'PL',n:'PL Polsha'},{f:'QA',n:'QA Qatar'},
+    {f:'SA',n:'SA Saudiya Arabistoni'},{f:'SG',n:'SG Singapur'},{f:'US',n:'US USA'}
   ], d: [
     {k:'bakalavr',t:'Bakalavrga topshirish',s:'Bakalavr (4 yil)',i:'&#127891;'},
     {k:'magistr',t:'Magistraturaga topshirish',s:'Magistr (2 yil)',i:'&#128218;'},
     {k:'doktorantura',t:'Doktorantura',s:'PhD (3-4 yil)',i:'&#128300;'}
   ]},
   work: {nm: 'Ishga topshirish', c: [
-    {f:'&#127479;&#127482;',n:'&#127479;&#127482; Rossiya'},{f:'&#127472;&#127479;',n:'&#127472;&#127479; Korea'},{f:'&#127481;&#127479;',n:'&#127481;&#127479; Turkiya'},
-    {f:'&#127462;&#127466;',n:'&#127462;&#127466; BAA (Dubai)'},{f:'&#127480;&#127462;',n:'&#127480;&#127462; Saudiya Arabistoni'},{f:'&#127472;&#127487;',n:"&#127472;&#127487; Qozog'iston"},
-    {f:'&#127465;&#127466;',n:'&#127465;&#127466; Germaniya'},{f:'&#127477;&#127473;',n:'&#127477;&#127473; Polsha'},{f:'&#127464;&#127487;',n:'&#127464;&#127487; Chexiya'},
-    {f:'&#127469;&#127482;',n:'&#127469;&#127482; Vengriya'},{f:'&#127479;&#127476;',n:'&#127479;&#127476; Ruminiya'},{f:'&#127464;&#127486;',n:'&#127464;&#127486; Kipr'}
+    {f:'RU',n:'RU Rossiya'},{f:'KR',n:'KR Korea'},{f:'TR',n:'TR Turkiya'},
+    {f:'AE',n:'AE BAA (Dubai)'},{f:'SA',n:'SA Saudiya Arabistoni'},{f:'KZ',n:"KZ Qozog'iston"},
+    {f:'DE',n:'DE Germaniya'},{f:'PL',n:'PL Polsha'},{f:'CZ',n:'CZ Chexiya'},
+    {f:'HU',n:'HU Vengriya'},{f:'RO',n:'RO Ruminiya'},{f:'CY',n:'CY Kipr'}
   ], d: null},
   visa: {nm: 'Vizaga topshirish', c: [
-    {f:'&#127462;&#127482;',n:'&#127462;&#127482; Avstraliya'},{f:'&#127462;&#127466;',n:'&#127462;&#127466; BAA'},
-    {f:'&#127468;&#127463;',n:'&#127468;&#127463; Buyuk Britaniya'},{f:'&#127464;&#127462;',n:'&#127464;&#127462; Kanada'},{f:'&#127464;&#127475;',n:'&#127464;&#127475; Xitoy'},
-    {f:'&#127465;&#127466;',n:'&#127465;&#127466; Germaniya'},{f:'&#127469;&#127482;',n:'&#127469;&#127482; Vengriya'},{f:'&#127470;&#127481;',n:'&#127470;&#127481; Italiya'},
-    {f:'&#127471;&#127477;',n:'&#127471;&#127477; Yaponiya'},{f:'&#127472;&#127479;',n:'&#127472;&#127479; Korea'},{f:'&#127473;&#127483;',n:'&#127473;&#127483; Latviya'},
-    {f:'&#127474;&#127486;',n:'&#127474;&#127486; Malaysiya'},{f:'&#127477;&#127473;',n:'&#127477;&#127473; Polsha'},{f:'&#127478;&#127462;',n:'&#127478;&#127462; Qatar'},
-    {f:'&#127480;&#127462;',n:'&#127480;&#127462; Saudiya Arabistoni'},{f:'&#127480;&#127468;',n:'&#127480;&#127468; Singapur'},{f:'&#127482;&#127480;',n:'&#127482;&#127480; USA'}
+    {f:'AU',n:'AU Avstraliya'},{f:'AE',n:'AE BAA'},
+    {f:'GB',n:'GB Buyuk Britaniya'},{f:'CA',n:'CA Kanada'},{f:'CN',n:'CN Xitoy'},
+    {f:'DE',n:'DE Germaniya'},{f:'HU',n:'HU Vengriya'},{f:'IT',n:'IT Italiya'},
+    {f:'JP',n:'JP Yaponiya'},{f:'KR',n:'KR Korea'},{f:'LV',n:'LV Latviya'},
+    {f:'MY',n:'MY Malaysiya'},{f:'PL',n:'PL Polsha'},{f:'QA',n:'QA Qatar'},
+    {f:'SA',n:'SA Saudiya Arabistoni'},{f:'SG',n:'SG Singapur'},{f:'US',n:'US USA'}
   ], d: [
     {k:'bakalavr',t:'Bakalavrga topshirish',s:'Talaba vizasi',i:'&#127891;'},
     {k:'magistr',t:'Magistraturaga topshirish',s:'Talaba vizasi',i:'&#128218;'},
@@ -325,7 +323,7 @@ document.getElementById('btnBackHome2').addEventListener('click',function(){show
 fetch('/api/auth/me').then(function(r){return r.json()}).then(function(d){if(d.user){usr=d.user;updateNav()}});
 buildDates();
 buildTimes();
-if(window.twemoji){twemoji.parse(document.body,{folder:"svg",ext:".svg"});var obs=new MutationObserver(function(){twemoji.parse(document.body,{folder:"svg",ext:".svg"})});obs.observe(document.body,{childList:true,subtree:true});}
+);var obs=new MutationObserver(function(){twemoji.parse(document.body,{folder:"svg",ext:".svg"})});obs.observe(document.body,{childList:true,subtree:true});}
 </script>
 </body>
 </html>
