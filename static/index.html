@@ -325,11 +325,7 @@ document.getElementById('btnBackHome2').addEventListener('click',function(){show
 fetch('/api/auth/me').then(function(r){return r.json()}).then(function(d){if(d.user){usr=d.user;updateNav()}});
 buildDates();
 buildTimes();
-if(window.twemoji){
-  twemoji.parse(document.body,{folder:"svg",ext:".svg"});
-  var obs=new MutationObserver(function(){twemoji.parse(document.body,{folder:"svg",ext:".svg"})});
-  obs.observe(document.body,{childList:true,subtree:true});
-}
+if(window.twemoji){twemoji.parse(document.body,{folder:"svg",ext:".svg"});var obs=new MutationObserver(function(){twemoji.parse(document.body,{folder:"svg",ext:".svg"})});obs.observe(document.body,{childList:true,subtree:true});}
 </script>
 </body>
 </html>
