@@ -5,6 +5,7 @@ from database import init_db
 from routers.auth_router import router as auth_router
 from routers.courses_router import router as courses_router
 from routers.consult_router import router as consult_router
+import os
 
 app = FastAPI(title="Zed Consult")
 
@@ -18,7 +19,7 @@ app.include_router(consult_router)
 
 @app.get("/admin")
 async def serve_admin():
-    return FileResponse("static/admin/index.html")
+    return FileResponse("admin_panel.html")
 
 @app.get("/")
 async def serve_home():
