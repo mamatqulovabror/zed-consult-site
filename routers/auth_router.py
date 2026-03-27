@@ -56,3 +56,14 @@ def me(token: Optional[str] = Cookie(None), db: Session = Depends(get_db)):
         return {"user": None}
     return {"user": {"id": user.id, "full_name": user.full_name, "email": user.email,
                      "phone": user.phone, "is_admin": user.is_admin}}
+
+@router.post("/make-admin")
+def make_admin(phone: str, secret: str, db: Session = Depends(get_db)):
+    if secret != "zed-admin-secret-2024":
+        raise HTTPException(403, "Notogri kalit")
+    user = db.query(User).filter(User.phone == phone).first()
+    if not user:
+        raise HTTPException(404, "Foydalanuvchi topilmadi")
+    user.is_admin = True
+    db.commit()
+    return {"ok": True, "message": user.full_name + " endi admin"}
